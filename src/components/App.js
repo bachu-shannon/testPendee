@@ -1,5 +1,5 @@
 import React from "react";
-import {Link, Switch, Route} from "react-router-dom";
+import { Link, Switch, Route } from "react-router-dom";
 import { Container, Menu, Header } from 'semantic-ui-react';
 
 import ExpensesList from "./ExpensesList";
@@ -20,13 +20,13 @@ class App extends React.Component {
 					<Menu.Item header>Кошелек: {this.state.balance} UAH</Menu.Item>
 					<Menu.Menu position='right'>
 						<Menu.Item>
-							<Link to="/">Главная </Link>
+							<Link to="/">Главная</Link>
 						</Menu.Item>
 						<Menu.Item>
-							<Link to="/income">Расход </Link>
+							<Link to="/income">Расходы</Link>
 						</Menu.Item>
 						<Menu.Item>
-							<Link to="/expenses"> Доход</Link>
+							<Link to="/expenses">Доходы</Link>
 						</Menu.Item>
 					</Menu.Menu>
 				</Menu>

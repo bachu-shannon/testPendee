@@ -12,8 +12,6 @@ class IncomeListItem extends React.Component {
 	renderItemSection() {
 		const { item } = this.props;
 
-		console.log(this.props);
-
 		if(this.state.isEditing) {
 			return (
 				<Table.Row key={this.props.index}>
@@ -48,7 +46,7 @@ class IncomeListItem extends React.Component {
 		return(
 			<Table.Cell>
 				<Button size='mini' onClick={this.onEditClick.bind(this)}>Edit</Button>
-				<Button size='mini'>Delete</Button>
+				<Button size='mini' onClick={this.onDeleteClick.bind(this)}>Delete</Button>
 			</Table.Cell>
 		)
 	}
@@ -63,7 +61,6 @@ class IncomeListItem extends React.Component {
 			isEditing: false
 		})
 	}
-
 	onSaveClick() {
 		const oldItem = this.props.item;
 		const newItem = this.refs.editInput.value;
@@ -71,6 +68,9 @@ class IncomeListItem extends React.Component {
 		this.setState({
 			isEditing: false
 		})
+	}
+	onDeleteClick() {
+		this.props.deleteCategory(this.props.item);
 	}
 
 	render() {
