@@ -1,7 +1,7 @@
 import React from "react";
-import { Table, Button } from 'semantic-ui-react';
+import { Table, Button, Input } from 'semantic-ui-react';
 
-class IncomeListItem extends React.Component {
+class CategoriesItem extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -16,7 +16,7 @@ class IncomeListItem extends React.Component {
 			return (
 				<Table.Row key={this.props.index}>
 					<Table.Cell>
-						<input type="text" defaultValue={item} ref="editInput"/>
+						<Input type="text" defaultValue={item.name} ref={input => this.editInput = input} />
 					</Table.Cell>
 					{this.renderEditingSection()}
 				</Table.Row>
@@ -26,7 +26,7 @@ class IncomeListItem extends React.Component {
 		return (
 			<Table.Row key={this.props.index}>
 				<Table.Cell>
-					{this.props.item}
+					{this.props.item.name}
 				</Table.Cell>
 				{this.renderEditingSection()}
 			</Table.Row>
@@ -63,7 +63,7 @@ class IncomeListItem extends React.Component {
 	}
 	onSaveClick() {
 		const oldItem = this.props.item;
-		const newItem = this.refs.editInput.value;
+		const newItem = this.editInput.inputRef.value;
 		this.props.saveCategory(oldItem, newItem);
 		this.setState({
 			isEditing: false
@@ -74,8 +74,8 @@ class IncomeListItem extends React.Component {
 	}
 
 	render() {
-		return this.renderItemSection()
+		return this.renderItemSection();
 	}
 }
 
-export default IncomeListItem;
+export default CategoriesItem;
