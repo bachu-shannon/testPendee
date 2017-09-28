@@ -12,12 +12,12 @@ class Home extends React.Component {
     }
 
     componentWillMount() {
-        console.log(this.context.categories, 6456465464);
+        console.log(this.context.transactionType, 6456465464);
     }
 
     renderModalAddForm() {
         let panes = [];
-        this.context.categories.forEach((pane) => {
+        this.context.transactionType.forEach((pane) => {
             panes.push(
                 {
                     menuItem: pane.text,
@@ -56,7 +56,7 @@ Home.contextTypes = {
     balance: PropTypes.number,
     transactionsList: PropTypes.array,
     categoriesList: PropTypes.array,
-    categories: PropTypes.array
+    transactionType: PropTypes.array
 };
 
 export default Home;

@@ -1,5 +1,6 @@
 import React, { PropTypes } from "react";
 import { Table, Form, Input, Select } from 'semantic-ui-react';
+import { CATEGORIES_INCOME, CATEGORIES_EXPENSES, TRANSACTION_TYPE } from "../constants/Contstants";
 
 import CategoriesItem from "./CategoriesItem";
 
@@ -15,16 +16,29 @@ class CategoriesList extends React.Component {
 		e.preventDefault();
 		let valInput = this.valueInput.inputRef.value,
 			valSelect = this.state.categoryTypeChoosed,
-			list = this.context.categoriesList;
-		let count = list.length - 1;
-		(valInput !== '') ? list.push({
-			key: count + 1,
-			text: valInput,
-			name: valInput,
-			value: valInput,
-			type: valSelect
-		}) : '';
-		this.context.updateContext("categoriesList", list);
+			[CATEGORIES_INCOME] = this.context[CATEGORIES_INCOME],
+			[CATEGORIES_EXPENSES] = this.context[CATEGORIES_EXPENSES],
+			countIncome = [CATEGORIES_INCOME].length - 1,
+			countExpenses = [CATEGORIES_EXPENSES].length - 1;
+
+			(this.state.categoryTypeChoosed === "Income") ?
+			[CATEGORIES_INCOME].push({
+                key: countIncome + 1,
+                text: valInput,
+                name: valInput,
+                value: valInput,
+                type: valSelect
+            }):
+			[CATEGORIES_EXPENSES].push({
+                key: countExpenses + 1,
+                text: valInput,
+                name: valInput,
+                value: valInput,
+                type: valSelect
+            });
+
+		this.context.updateContext([CATEGORIES_INCOME], [CATEGORIES_INCOME]);
+		this.context.updateContext([CATEGORIES_EXPENSES], [CATEGORIES_EXPENSES]);
 		this.valueInput.inputRef.value = '';
 	}
 
@@ -111,12 +125,11 @@ class CategoriesList extends React.Component {
 	}
 
 	renderAddCategory() {
-		console.log(this.context.categories);
 		return (
 			<Form onSubmit={this.addCategory.bind(this)}>
 				<Form.Group>
 					<Input ref={input => this.valueInput = input} placeholder="Write a category..." />
-					<Select onChange={(e, { value }) => this.setState({categoryTypeChoosed: value})} options={this.context.categories} placeholder='Choose...' />
+					<Select onChange={(e, { value }) => this.setState({categoryTypeChoosed: value})} options={this.context[TRANSACTION_TYPE]} placeholder='Choose...' />
 					<Form.Button>Create</Form.Button>
 				</Form.Group>
 			</Form>
@@ -134,8 +147,9 @@ class CategoriesList extends React.Component {
 }
 
 CategoriesList.contextTypes = {
-    categoriesList: PropTypes.array,
-    categories: PropTypes.array,
+    [CATEGORIES_INCOME]: PropTypes.array,
+    [CATEGORIES_EXPENSES]: PropTypes.array,
+    [TRANSACTION_TYPE]: PropTypes.array,
 	updateContext: PropTypes.func
 };
 

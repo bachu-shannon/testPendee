@@ -1,6 +1,7 @@
 import React, { PropTypes } from "react";
 import { Link, Switch, Route } from "react-router-dom";
 import { Container, Menu } from 'semantic-ui-react';
+import { BALANCE, CATEGORIES_INCOME, CATEGORIES_EXPENSES, TRANSACTIONS, TRANSACTION_TYPE } from "./constants/Contstants";
 
 import Home from "./Home";
 import Categories from "./categories/Categories";
@@ -9,10 +10,20 @@ class App extends React.Component {
 	constructor() {
 		super();
 		this.state = {
-            balance: 0,
-            transactionsList: [],
-            categoriesList: [],
-            categories: [
+            [BALANCE]: 0,
+            [CATEGORIES_INCOME]: [],
+            [CATEGORIES_EXPENSES]: [],
+            [TRANSACTIONS]: [
+                {
+                    name: "test",
+                    categoryType: "income",
+                    date: "27.09.2017",
+                    note: 'asdasdasdasdas',
+                    price: 3000 + "UAH",
+                    color: "green"
+                }
+            ],
+            [TRANSACTION_TYPE]: [
                 {
                     key: 0,
                     value: "Income",
@@ -29,27 +40,29 @@ class App extends React.Component {
 
     getChildContext() {
 		return {
-			balance: this.state.balance,
-            transactionsList: this.state.transactionsList,
-            categoriesList: this.state.categoriesList,
-            categories: this.state.categories,
+            [BALANCE]: this.state[BALANCE],
+            [TRANSACTIONS]: this.state[TRANSACTIONS],
+            [CATEGORIES_EXPENSES]: this.state[CATEGORIES_EXPENSES],
+            [TRANSACTION_TYPE]: this.state[TRANSACTION_TYPE],
             updateContext: this.updateContext.bind(this)
 		}
 	}
 
     componentDidUpdate() {
-        localStorage.setItem('categoriesList', JSON.stringify(this.state.categoriesList));
+        localStorage.setItem(CATEGORIES_INCOME, JSON.stringify(this.state[CATEGORIES_INCOME] || []));
+        localStorage.setItem(CATEGORIES_EXPENSES, JSON.stringify(this.state[CATEGORIES_EXPENSES] || []));
     }
 
     componentWillMount() {
         this.setState({
-            categoriesList: JSON.parse(localStorage.getItem('categoriesList'))
+            [CATEGORIES_INCOME]: JSON.parse(localStorage.getItem(CATEGORIES_INCOME)),
+			[CATEGORIES_EXPENSES]: JSON.parse(localStorage.getItem(CATEGORIES_EXPENSES))
         })
     }
 
     updateContext(contextName, contextValue) {
     	this.setState({
-            contextName: contextValue
+            [contextName]: contextValue
 		})
 	}
 
@@ -79,10 +92,10 @@ class App extends React.Component {
 }
 
 App.childContextTypes = {
-	balance: PropTypes.number,
-    transactionsList: PropTypes.array,
-    categoriesList: PropTypes.array,
-    categories: PropTypes.array,
+    [BALANCE]: PropTypes.number,
+    [TRANSACTIONS]: PropTypes.array,
+    [CATEGORIES_EXPENSES]: PropTypes.array,
+    [TRANSACTION_TYPE]: PropTypes.array,
 	updateContext: PropTypes.func
 };
 

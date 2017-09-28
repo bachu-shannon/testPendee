@@ -1,5 +1,6 @@
 import React, { PropTypes } from "react";
 import { Table, Button, Input, Select } from 'semantic-ui-react';
+import { CATEGORIES_INCOME, CATEGORIES_EXPENSES, TRANSACTIONS } from "../constants/Contstants";
 
 class TransactionsItem extends React.Component {
     constructor(props) {
