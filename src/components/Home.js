@@ -7,21 +7,6 @@ class Home extends React.Component {
     constructor() {
         super();
         this.state = {
-            balance: 0,
-            transactionsList: [],
-            categoriesList: [],
-            categories: [
-                {
-                    key: 0,
-                    value: "Income",
-                    text: "Income",
-                },
-                {
-                    key: 1,
-                    value: "Expenses",
-                    text: "Expenses",
-                }
-            ],
             categoryType: ''
         }
     }
@@ -32,7 +17,7 @@ class Home extends React.Component {
 
     renderModalAddForm() {
         let panes = [];
-        this.state.categories.forEach((pane) => {
+        this.context.categories.forEach((pane) => {
             panes.push(
                 {
                     menuItem: pane.text,
@@ -40,7 +25,7 @@ class Home extends React.Component {
                         <Tab.Pane attached={false}>
                             <Select
                                 onChange={(e, { value }) => this.setState({categoryType: value})}
-                                options={this.state.categoriesList}
+                                options={this.context.categoriesList}
                                 placeholder='Choose category'
                             />
                         </Tab.Pane>
@@ -67,7 +52,7 @@ class Home extends React.Component {
     }
 }
 
-Home.childContextTypes = {
+Home.contextTypes = {
     balance: PropTypes.number,
     transactionsList: PropTypes.array,
     categoriesList: PropTypes.array,
