@@ -8,7 +8,7 @@ module.exports = function() {
                     use: {
                         loader: 'babel-loader',
                         options: {
-                            presets: ['es2015', 'react']
+                            presets: ['react', 'stage-0', 'es2015'],
                         }
                     }
                 }

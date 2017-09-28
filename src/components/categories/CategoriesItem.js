@@ -14,7 +14,7 @@ class CategoriesItem extends React.Component {
 
 		if(this.state.isEditing) {
 			return (
-				<Table.Row key={this.props.index}>
+				<Table.Row key={item.key}>
 					<Table.Cell>
 						<Input type="text" defaultValue={item.name} ref={input => this.editInput = input} />
 					</Table.Cell>
@@ -24,7 +24,7 @@ class CategoriesItem extends React.Component {
 		}
 
 		return (
-			<Table.Row key={this.props.index}>
+			<Table.Row key={item.key}>
 				<Table.Cell>
 					{this.props.item.name}
 				</Table.Cell>
@@ -62,9 +62,9 @@ class CategoriesItem extends React.Component {
 		})
 	}
 	onSaveClick() {
-		const oldItem = this.props.item;
-		const newItem = this.editInput.inputRef.value;
-		this.props.saveCategory(oldItem, newItem);
+		const oldValue = this.props.item.name;
+		const newValue = this.editInput.inputRef.value;
+		this.props.saveCategory(oldValue, newValue);
 		this.setState({
 			isEditing: false
 		})

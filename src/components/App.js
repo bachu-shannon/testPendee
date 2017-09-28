@@ -1,4 +1,4 @@
-import React from "react";
+import React, { PropTypes } from "react";
 import { Link, Switch, Route } from "react-router-dom";
 import { Container, Menu } from 'semantic-ui-react';
 
@@ -9,8 +9,48 @@ class App extends React.Component {
 	constructor() {
 		super();
 		this.state = {
-			balance: 3000
+            balance: 0,
+            transactionsList: [],
+            categoriesList: [],
+            categories: [
+                {
+                    key: 0,
+                    value: "Income",
+                    text: "Income",
+                },
+                {
+                    key: 1,
+                    value: "Expenses",
+                    text: "Expenses",
+                }
+            ],
+        };
+	}
+
+    getChildContext() {
+		return {
+			balance: this.state.balance,
+            transactionsList: this.state.transactionsList,
+            categoriesList: this.state.categoriesList,
+            categories: this.state.categories,
+            updateContext: this.updateContext.bind(this)
 		}
+	}
+
+    componentDidUpdate() {
+        localStorage.setItem('categoriesList', JSON.stringify(this.state.categoriesList));
+    }
+
+    componentWillMount() {
+        this.setState({
+            categoriesList: JSON.parse(localStorage.getItem('categoriesList'))
+        })
+    }
+
+    updateContext(contextName, contextValue) {
+    	this.setState({
+            contextName: contextValue
+		})
 	}
 
 	render() {
@@ -37,5 +77,13 @@ class App extends React.Component {
 		)
 	}
 }
+
+App.childContextTypes = {
+	balance: PropTypes.number,
+    transactionsList: PropTypes.array,
+    categoriesList: PropTypes.array,
+    categories: PropTypes.array,
+	updateContext: PropTypes.func
+};
 
 export default App;
