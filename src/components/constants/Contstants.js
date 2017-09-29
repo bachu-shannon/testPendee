@@ -1,5 +1,6 @@
 export const BALANCE = "balance";
-export const CATEGORIES_INCOME = "categoriesIncome";
-export const CATEGORIES_EXPENSES = "categoriesExpenses";
+export const INCOME = "income";
+export const EXPENSES = "expenses";
 export const TRANSACTIONS = "transactionList";
-export const TRANSACTION_TYPE = "transactionType";
+export const TRANSACTION_TYPES = "transactionType";
+export const DEFAULT_TRANSACTION_TYPE = "DEFAULT_TRANSACTION_TYPE";

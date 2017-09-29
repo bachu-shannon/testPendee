@@ -1,6 +1,6 @@
-import React, { PropTypes } from "react";
-import { Table, Button, Input, Select } from 'semantic-ui-react';
-import { CATEGORIES_INCOME, CATEGORIES_EXPENSES, TRANSACTIONS } from "../constants/Contstants";
+import React, {PropTypes} from "react";
+import {Table, Button, Input, Select} from 'semantic-ui-react';
+import {INCOME, EXPENSES, TRANSACTIONS} from "../constants/Contstants";
 
 class TransactionsItem extends React.Component {
     constructor(props) {
@@ -24,22 +24,23 @@ class TransactionsItem extends React.Component {
     }
 
     renderItemSection() {
-        const { item } = this.props;
+        const {item} = this.props;
 
-        if(this.state.isEditing) {
+        if (this.state.isEditing) {
             return (
                 <Table.Row key={this.props.index}>
                     <Table.Cell>
-                        <Select onChange={(e, { value }) => this.setState({categoryType: value})} options={this.context.categoriesList} placeholder='Choose...' />
+                        <Select onChange={(e, {value}) => this.setState({categoryType: value})}
+                                options={this.context.categoriesList} placeholder='Choose...'/>
                     </Table.Cell>
                     <Table.Cell>
-                        <Input size='small' defaultValue={this.props.item.name} />
+                        <Input size='small' defaultValue={this.props.item.name}/>
                     </Table.Cell>
                     <Table.Cell>
-                        <Input size='small' defaultValue={this.props.item.note} />
+                        <Input size='small' defaultValue={this.props.item.note}/>
                     </Table.Cell>
                     <Table.Cell>
-                        <Input size='small' defaultValue={this.props.item.price} />
+                        <Input size='small' defaultValue={this.props.item.price}/>
                     </Table.Cell>
                     <Table.Cell>
                         <Button compact onClick={this.onSaveHandleClick.bind(this)}>Save changes</Button>
@@ -62,7 +63,7 @@ class TransactionsItem extends React.Component {
                 <Table.Cell>
                     <div>{item.note}</div>
                 </Table.Cell>
-                <Table.Cell>
+                <Table.Cell textAlign='right'>
                     <div style={{color: item.color}}>{item.price}</div>
                 </Table.Cell>
             </Table.Row>

@@ -1,6 +1,6 @@
-import React, { PropTypes } from "react";
-import { Table } from 'semantic-ui-react';
-import { CATEGORIES_INCOME, CATEGORIES_EXPENSES, TRANSACTIONS } from "../constants/Contstants";
+import React, {PropTypes} from "react";
+import {Table} from 'semantic-ui-react';
+import {INCOME, EXPENSES, TRANSACTIONS} from "../constants/Contstants";
 
 import TransactionsItem from "./TransactionsItem";
 
@@ -23,10 +23,11 @@ class Transactions extends React.Component {
     }
 
     render() {
+        const transactions = this.context[TRANSACTIONS];
         return (
             <Table singleLine selectable>
                 <Table.Body>
-                    {this.context[TRANSACTIONS].map((item, index) => {
+                    {transactions.map((item, index) => {
                         return (
                             <TransactionsItem
                                 item={item}
@@ -42,8 +43,8 @@ class Transactions extends React.Component {
 }
 
 Transactions.contextTypes = {
-    [CATEGORIES_INCOME]: PropTypes.array,
-    [CATEGORIES_EXPENSES]: PropTypes.array,
+    [INCOME]: PropTypes.array,
+    [EXPENSES]: PropTypes.array,
     [TRANSACTIONS]: PropTypes.array,
     updateContext: PropTypes.func
 };
