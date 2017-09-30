@@ -1,0 +1,6 @@
+.income, .income input {
+    color: #009119 !important;
+}
+.expenses, .expenses input{
+    color: #FF0000 !important;
+}

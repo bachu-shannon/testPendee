@@ -9,12 +9,12 @@ class Transactions extends React.Component {
         super();
         this.state = {
             formData: {
-                categoryType: null,
-                transactionType: null,
                 value: null,
                 date: null,
                 note: '',
-                price: null
+                price: null,
+                categoryType: null,
+                transactionType: null,
             },
             modalStatus: false
         }
@@ -42,8 +42,6 @@ class Transactions extends React.Component {
 
         this.context.updateContext(TRANSACTIONS, transactions);
 
-        this.balanceCount(this.state.formData.price);
-
         this.setState({
             modalStatus: false
         })
@@ -62,8 +60,6 @@ class Transactions extends React.Component {
 
         transactions.splice(elementIndex, 1);
         this.context.updateContext(TRANSACTIONS, transactions);
-
-        this.balanceCount("-" + deletingItem.price);
     }
 
     renderModalAddForm() {
@@ -92,10 +88,10 @@ class Transactions extends React.Component {
                                             formData: {
                                                 ...this.state.formData,
                                                 ...{
+                                                    text: value,
+                                                    value,
                                                     transactionType: type.value,
                                                     categoryType: value,
-                                                    text: value,
-                                                    value
                                                 }
                                             }
                                         })}
@@ -115,8 +111,10 @@ class Transactions extends React.Component {
                                         onChange={this.onHandleChange.bind(this)}
                                     />
                                     <Form.Input
+                                        className={type.value}
                                         label='Price'
-                                        name="price" placeholder='0.00'
+                                        defaultValue="0"
+                                        name="price"
                                         onChange={this.onHandleChange.bind(this)}
                                     />
                                 </Form.Group>

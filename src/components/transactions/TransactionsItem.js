@@ -107,7 +107,7 @@ class TransactionsItem extends React.Component {
                 <Table.Cell>
                     {item.note}
                 </Table.Cell>
-                <Table.Cell textAlign='right'>
+                <Table.Cell className={item.transactionType} textAlign='right'>
                     {item.price + " " + DEFAULT_CURRENCY}
                 </Table.Cell>
             </Table.Row>

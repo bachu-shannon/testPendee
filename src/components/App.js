@@ -1,4 +1,5 @@
 import React, {PropTypes} from "react";
+import { setLocationData, getLocationData } from "../storage"
 import {Link, Switch, Route} from "react-router-dom";
 import {Container, Menu} from 'semantic-ui-react';
 import {
@@ -51,9 +52,7 @@ class App extends React.Component {
     }
 
     componentDidUpdate() {
-        localStorage.setItem("data", JSON.stringify(this.state || {}));
-
-        console.log(this.state[TRANSACTIONS]);
+        setLocationData("data", this.state);
     }
 
     componentWillMount() {
@@ -94,7 +93,7 @@ class App extends React.Component {
     }
 }
 
-const data = JSON.parse(localStorage.getItem("data")) || {};
+const data = getLocationData("data");
 
 App.childContextTypes = {
     [BALANCE]: PropTypes.number,
