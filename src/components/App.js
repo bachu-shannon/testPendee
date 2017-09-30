@@ -1,5 +1,6 @@
-import React, {PropTypes} from "react";
-import { setLocationData, getLocationData } from "../storage"
+import React from "react";
+import PropTypes from 'prop-types';
+import { setData, getData } from "../storage"
 import {Link, Switch, Route} from "react-router-dom";
 import {Container, Menu} from 'semantic-ui-react';
 import {
@@ -12,7 +13,7 @@ import {
     DEFAULT_CURRENCY
 } from "./constants/Contstants";
 
-import Home from "./Home";
+import Transactions from "./transactions/Transactions";
 import Categories from "./categories/Categories";
 
 class App extends React.Component {
@@ -52,7 +53,7 @@ class App extends React.Component {
     }
 
     componentDidUpdate() {
-        setLocationData("data", this.state);
+        setData("data", this.state);
     }
 
     componentWillMount() {
@@ -84,7 +85,7 @@ class App extends React.Component {
                 </Menu>
                 <div className="main-content">
                     <Switch>
-                        <Route exact path="/" component={Home}/>
+                        <Route exact path="/" component={Transactions}/>
                         <Route path="/categories" component={Categories}/>
                     </Switch>
                 </div>
@@ -93,7 +94,7 @@ class App extends React.Component {
     }
 }
 
-const data = getLocationData("data");
+const data = getData("data");
 
 App.childContextTypes = {
     [BALANCE]: PropTypes.number,

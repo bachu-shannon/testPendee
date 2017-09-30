@@ -1,4 +1,5 @@
-import React, {PropTypes} from "react";
+import React from "react";
+import PropTypes from 'prop-types';
 import {Table, Button, Modal, Tab, Form} from 'semantic-ui-react';
 import {INCOME, EXPENSES, TRANSACTIONS, TRANSACTION_TYPES, BALANCE} from "../constants/Contstants";
 

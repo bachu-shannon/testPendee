@@ -1,4 +1,5 @@
-import React, {PropTypes} from "react";
+import React from "react";
+import PropTypes from 'prop-types';
 import {Table, Button, Input, Select} from 'semantic-ui-react';
 import {TRANSACTIONS, INCOME, EXPENSES, DEFAULT_CURRENCY} from "../constants/Contstants";
 
@@ -47,7 +48,15 @@ class TransactionsItem extends React.Component {
 
     renderItemSection() {
         const {item, index} = this.props;
-        const categoriesType = this.context[item.transactionType];
+        const categories = this.context[item.transactionType];
+        const options = categories.map(category => {
+            return {
+                key: category.key,
+                value: category.value,
+                text: category.value
+            }
+        });
+        const defaultCategory = item.value;
 
         if (this.state.isEditing) {
             return (
@@ -64,8 +73,8 @@ class TransactionsItem extends React.Component {
                                     }
                                 }
                             })}
-                            options={categoriesType}
-                            defaultValue={item.value}
+                            options={options}
+                            defaultValue={defaultCategory}
                             placeholder='Choose category'
                         />
                     </Table.Cell>

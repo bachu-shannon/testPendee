@@ -1,7 +1,7 @@
-export const setLocationData = (dataName, data) => {
+export const setData = (dataName, data) => {
     localStorage.setItem(dataName, JSON.stringify(data || {}));
 };
 
-export const getLocationData = data => {
+export const getData = data => {
     return JSON.parse(localStorage.getItem(data)) || {};
 };
