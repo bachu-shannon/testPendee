@@ -124,8 +124,7 @@ TransactionsItem.contextTypes = {
     [TRANSACTIONS]: PropTypes.array,
     [INCOME]: PropTypes.array,
     [EXPENSES]: PropTypes.array,
-    updateContext: PropTypes.func,
-    balanceCount: PropTypes.func,
+    updateContext: PropTypes.func
 };
 
 export default TransactionsItem;
