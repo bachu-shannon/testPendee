@@ -5,7 +5,7 @@ npm 3.10.10
 npm install
 # Run
 npm run start
-#Build
+# Build
 npm run build
-#Some problems
+# Some problems
 If App don't starting, try change a Port in .\testPendee\webpack\devserver
