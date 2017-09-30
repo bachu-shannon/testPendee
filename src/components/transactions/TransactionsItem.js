@@ -77,7 +77,7 @@ class TransactionsItem extends React.Component {
                         <Input size='small' name="note" defaultValue={item.note}
                                onChange={this.onHandleChange.bind(this)}/>
                     </Table.Cell>
-                    <Table.Cell>
+                    <Table.Cell className={item.transactionType}>
                         <Input
                             labelPosition='right'
                             label={DEFAULT_CURRENCY}

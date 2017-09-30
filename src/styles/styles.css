@@ -1,6 +1,8 @@
 .income, .income input {
     color: #009119 !important;
+    font-weight: 700;
 }
 .expenses, .expenses input{
     color: #FF0000 !important;
+    font-weight: 700;
 }
