@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from 'prop-types';
-import { setData, getData } from "../storage"
+import {setData, getData} from "../storage"
 import {Link, Switch, Route} from "react-router-dom";
 import {Container, Menu} from 'semantic-ui-react';
 import {
