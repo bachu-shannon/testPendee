@@ -20,8 +20,9 @@ class CategoriesList extends React.Component {
         const selectedTransactionType = this.state.selectedTransactionType;
         const categories = this.context[selectedTransactionType];
         (categoryName !== '') ? categories.push({
-            key: categories.length + categoryName.split(' ').join('_'),
+            key: categories.length,
             value: categoryName,
+            text: categoryName,
             transactionType: selectedTransactionType
         }) : '';
 

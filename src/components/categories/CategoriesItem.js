@@ -65,9 +65,9 @@ class CategoriesItem extends React.Component {
 
     onSaveClick() {
         const value = this.editInput.inputRef.value;
-        const item = {...this.props.item, ...{value}};
+        const editItem = {...this.props.item, ...{value}};
 
-        this.props.saveCategory(item);
+        this.props.saveCategory(editItem);
         this.setState({
             isEditing: false
         })

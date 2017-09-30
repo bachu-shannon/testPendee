@@ -1,70 +1,114 @@
 import React, {PropTypes} from "react";
 import {Table, Button, Input, Select} from 'semantic-ui-react';
-import {INCOME, EXPENSES, TRANSACTIONS} from "../constants/Contstants";
+import {TRANSACTIONS, INCOME, EXPENSES, DEFAULT_CURRENCY} from "../constants/Contstants";
 
 class TransactionsItem extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            categoryType: '',
+            editingItem: this.props.item,
             isEditing: false
         }
+    }
+
+    onHandleChange(event) {
+        const editInputName = event.target.name;
+        const editInputValue = event.target.value;
+        const editingItem = this.state.editingItem;
+
+        editingItem[editInputName] = editInputValue;
+        this.setState({
+            editingItem
+        })
     }
 
     onEditHandleClick() {
         this.setState({
             isEditing: true
+        });
+    }
+
+    onSaveClick() {
+        const editItem = this.state.editingItem;
+
+        this.props.saveTransaction(editItem);
+        this.setState({
+            isEditing: false
         })
     }
 
-    onSaveHandleClick() {
+    onDeleteClick(e) {
+        e.preventDefault();
+        this.props.deleteTransaction(this.props.item);
         this.setState({
             isEditing: false
         })
     }
 
     renderItemSection() {
-        const {item} = this.props;
+        const {item, index} = this.props;
+        const categoriesType = this.context[item.transactionType];
 
         if (this.state.isEditing) {
             return (
-                <Table.Row key={this.props.index}>
+                <Table.Row key={index}>
                     <Table.Cell>
-                        <Select onChange={(e, {value}) => this.setState({categoryType: value})}
-                                options={this.context.categoriesList} placeholder='Choose...'/>
+                        <Select
+                            onChange={(e, {value}) => this.setState({
+                                editingItem: {
+                                    ...this.state.editingItem,
+                                    ...{
+                                        categoryType: value,
+                                        text: value,
+                                        value
+                                    }
+                                }
+                            })}
+                            options={categoriesType}
+                            defaultValue={item.value}
+                            placeholder='Choose category'
+                        />
                     </Table.Cell>
                     <Table.Cell>
-                        <Input size='small' defaultValue={this.props.item.name}/>
+                        <Input size='small' name="date" defaultValue={item.date}
+                               onChange={this.onHandleChange.bind(this)}/>
                     </Table.Cell>
                     <Table.Cell>
-                        <Input size='small' defaultValue={this.props.item.note}/>
+                        <Input size='small' name="note" defaultValue={item.note}
+                               onChange={this.onHandleChange.bind(this)}/>
                     </Table.Cell>
                     <Table.Cell>
-                        <Input size='small' defaultValue={this.props.item.price}/>
+                        <Input
+                            labelPosition='right'
+                            label={DEFAULT_CURRENCY}
+                            size='small' name="price"
+                            defaultValue={item.price}
+                            onChange={this.onHandleChange.bind(this)}
+                        />
                     </Table.Cell>
                     <Table.Cell>
-                        <Button compact onClick={this.onSaveHandleClick.bind(this)}>Save changes</Button>
+                        <Button compact onClick={this.onSaveClick.bind(this)}>Save changes</Button>
                     </Table.Cell>
                     <Table.Cell>
-                        <Button compact negative>Delete</Button>
+                        <Button compact onClick={this.onDeleteClick.bind(this)} negative>Delete</Button>
                     </Table.Cell>
                 </Table.Row>
             )
         }
 
         return (
-            <Table.Row key={this.props.index} onClick={this.onEditHandleClick.bind(this)}>
+            <Table.Row key={index} onClick={this.onEditHandleClick.bind(this)}>
                 <Table.Cell>
-                    {this.props.item.name}
+                    {item.categoryType}
                 </Table.Cell>
                 <Table.Cell>
-                    <div>{item.date}</div>
+                    {item.date}
                 </Table.Cell>
                 <Table.Cell>
-                    <div>{item.note}</div>
+                    {item.note}
                 </Table.Cell>
                 <Table.Cell textAlign='right'>
-                    <div style={{color: item.color}}>{item.price}</div>
+                    {item.price + " " + DEFAULT_CURRENCY}
                 </Table.Cell>
             </Table.Row>
         )
@@ -77,7 +121,10 @@ class TransactionsItem extends React.Component {
 }
 
 TransactionsItem.contextTypes = {
-    categoriesList: PropTypes.array,
+    [TRANSACTIONS]: PropTypes.array,
+    [INCOME]: PropTypes.array,
+    [EXPENSES]: PropTypes.array,
+    updateContext: PropTypes.func
 };
 
 export default TransactionsItem;

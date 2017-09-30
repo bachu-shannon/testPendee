@@ -7,7 +7,8 @@ import {
     EXPENSES,
     TRANSACTIONS,
     TRANSACTION_TYPES,
-    DEFAULT_TRANSACTION_TYPE
+    DEFAULT_TRANSACTION_TYPE,
+    DEFAULT_CURRENCY
 } from "./constants/Contstants";
 
 import Home from "./Home";
@@ -21,16 +22,7 @@ class App extends React.Component {
             [BALANCE]: 0,
             [INCOME]: [],
             [EXPENSES]: [],
-            [TRANSACTIONS]: [
-                {
-                    name: "test",
-                    categoryType: "income",
-                    date: "27.09.2017",
-                    note: 'asdasdasdasdas',
-                    price: 3000 + "UAH",
-                    color: "green"
-                }
-            ],
+            [TRANSACTIONS]: [],
             [TRANSACTION_TYPES]: [
                 {
                     key: 0,
@@ -59,14 +51,15 @@ class App extends React.Component {
     }
 
     componentDidUpdate() {
-        localStorage.setItem(INCOME, JSON.stringify(this.state[INCOME] || []));
-        localStorage.setItem(EXPENSES, JSON.stringify(this.state[EXPENSES] || []));
+        localStorage.setItem("data", JSON.stringify(this.state || {}));
+
+        console.log(this.state[TRANSACTIONS]);
     }
 
     componentWillMount() {
         this.setState({
-            [INCOME]: JSON.parse(localStorage.getItem(INCOME)) || [],
-            [EXPENSES]: JSON.parse(localStorage.getItem(EXPENSES)) || []
+            ...this.state,
+            ...data
         })
     }
 
@@ -80,7 +73,7 @@ class App extends React.Component {
         return (
             <Container>
                 <Menu pointing>
-                    <Menu.Item header>Кошелек: {this.state.balance} UAH</Menu.Item>
+                    <Menu.Item header>Кошелек: {this.state[BALANCE]} {DEFAULT_CURRENCY}</Menu.Item>
                     <Menu.Menu position='right'>
                         <Menu.Item>
                             <Link to="/">Main</Link>
@@ -100,6 +93,8 @@ class App extends React.Component {
         )
     }
 }
+
+const data = JSON.parse(localStorage.getItem("data")) || {};
 
 App.childContextTypes = {
     [BALANCE]: PropTypes.number,
