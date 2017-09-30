@@ -31,15 +31,6 @@ class Transactions extends React.Component {
         })
     }
 
-    balanceCount(sum) {
-        let balance = this.context[BALANCE];
-        const numSum = Number(sum);
-
-        balance += numSum;
-
-        this.context.updateContext(BALANCE, balance);
-    }
-
     addTransaction() {
         const transactions = this.context[TRANSACTIONS];
         const formData = this.state.formData;
@@ -63,8 +54,6 @@ class Transactions extends React.Component {
         transactions[item.key] = item;
 
         this.context.updateContext(TRANSACTIONS, transactions);
-
-        this.balanceCount(item.price);
     }
 
     deleteTransaction(deletingItem) {
@@ -206,7 +195,8 @@ Transactions.contextTypes = {
     [EXPENSES]: PropTypes.array,
     [TRANSACTIONS]: PropTypes.array,
     [TRANSACTION_TYPES]: PropTypes.array,
-    updateContext: PropTypes.func
+    updateContext: PropTypes.func,
+    balanceCount: PropTypes.func,
 };
 
 export default Transactions;

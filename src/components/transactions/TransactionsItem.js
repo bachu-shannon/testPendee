@@ -6,7 +6,7 @@ class TransactionsItem extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            editingItem: this.props.item,
+            editingItem: {},
             isEditing: false
         }
     }
@@ -29,7 +29,7 @@ class TransactionsItem extends React.Component {
     }
 
     onSaveClick() {
-        const editItem = this.state.editingItem;
+        const editItem = {...this.props.item, ...this.state.editingItem};
 
         this.props.saveTransaction(editItem);
         this.setState({
@@ -124,7 +124,8 @@ TransactionsItem.contextTypes = {
     [TRANSACTIONS]: PropTypes.array,
     [INCOME]: PropTypes.array,
     [EXPENSES]: PropTypes.array,
-    updateContext: PropTypes.func
+    updateContext: PropTypes.func,
+    balanceCount: PropTypes.func,
 };
 
 export default TransactionsItem;

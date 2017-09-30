@@ -46,7 +46,8 @@ class App extends React.Component {
             [INCOME]: this.state[INCOME],
             [TRANSACTION_TYPES]: this.state[TRANSACTION_TYPES],
             [DEFAULT_TRANSACTION_TYPE]: this.state[DEFAULT_TRANSACTION_TYPE],
-            updateContext: this.updateContext.bind(this)
+            updateContext: this.updateContext.bind(this),
+            balanceCount: this.balanceCount.bind(this)
         }
     }
 
@@ -61,6 +62,10 @@ class App extends React.Component {
             ...this.state,
             ...data
         })
+    }
+
+    balanceCount(sum) {
+
     }
 
     updateContext(contextName, contextValue) {
@@ -103,7 +108,8 @@ App.childContextTypes = {
     [INCOME]: PropTypes.array,
     [TRANSACTION_TYPES]: PropTypes.array,
     [DEFAULT_TRANSACTION_TYPE]: PropTypes.string,
-    updateContext: PropTypes.func
+    updateContext: PropTypes.func,
+    balanceCount: PropTypes.func
 };
 
 export default App;
